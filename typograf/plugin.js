@@ -1,5 +1,5 @@
 /**
- * TinyMCE 4
+ * TinyMce 5
  */
 tinymce.PluginManager.requireLangPack('typograf', 'en,ru');
 tinymce.PluginManager.add('typograf', function (editor, url) {
@@ -23,17 +23,16 @@ tinymce.PluginManager.add('typograf', function (editor, url) {
         });
     });
 
-    editor.addButton('typograf', {
-        text: 'Typography',
-        icon: 'blockquote',
-        onclick: typo
+    editor.ui.registry.addButton('typograf', {
+        icon: 'quote',
+        tooltip: 'Typography',
+        onAction: typo
     });
 
-    editor.addMenuItem('typograf', {
-        context: 'format',
+    editor.ui.registry.addMenuItem('typograf', {
         text: 'Typography',
-        icon: 'blockquote',
-        onclick: typo
+        icon: 'quote',
+        onAction: typo
     });
 
     return {
