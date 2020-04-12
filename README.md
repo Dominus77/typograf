@@ -11,7 +11,7 @@
 ```
 git clone https://github.com/Dominus77/typograf.git typograf
 ```
-2. Положить typograf в каталог с плагинами (plugins) редактора [TinyMce](https://www.tiny.cloud/docs)
+2. Положить typograf в каталог с плагинами (plugins) редактора [TinyMce](https://www.tiny.cloud)
 3. Подключить в редакторе плагин
 4. Вывести кнопку на панель инструментов редактора
 
