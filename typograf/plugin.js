@@ -1,3 +1,6 @@
+/**
+ * TinyMCE 4
+ */
 tinymce.PluginManager.requireLangPack('typograf', 'en,ru');
 tinymce.PluginManager.add('typograf', function (editor, url) {
     'use strict';
