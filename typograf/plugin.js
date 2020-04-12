@@ -1,8 +1,8 @@
-tinymce.PluginManager.requireLangPack('typograf','en,ru');
+tinymce.PluginManager.requireLangPack('typograf', 'en,ru');
 tinymce.PluginManager.add('typograf', function (editor, url) {
     'use strict';
 
-    var scriptLoader = new tinymce.dom.ScriptLoader(),
+    let scriptLoader = new tinymce.dom.ScriptLoader(),
         tp,
         typo = function () {
             if (tp) {
@@ -32,4 +32,13 @@ tinymce.PluginManager.add('typograf', function (editor, url) {
         icon: 'blockquote',
         onclick: typo
     });
+
+    return {
+        getMetadata: function () {
+            return  {
+                name: 'Typography',
+                url: 'https://github.com/Dominus77/typograf'
+            };
+        }
+    };
 });
