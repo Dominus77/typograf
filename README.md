@@ -17,7 +17,8 @@
 tinymce.init({
   selector: 'textarea',
   plugins: ['typograf'],
-  toolbar: 'typograf'
+  toolbar: 'typograf',
+  contextmenu: 'typograf',
 })
 ```
 
