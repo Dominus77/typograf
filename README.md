@@ -9,7 +9,7 @@
 
 1. Склонировать проект:
 ```
-git clone https://github.com/Dominus77/typograf.git typograf
+git clone https://github.com/Dominus77/typograf.git
 ```
 2. Положить typograf в каталог с плагинами (plugins) редактора [TinyMce](https://www.tiny.cloud)
 3. Подключить в редакторе плагин
