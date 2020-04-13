@@ -1,5 +1,5 @@
 /**
- * TinyMCE 4
+ * For TinyMCE 4
  */
 tinymce.PluginManager.requireLangPack('typograf', 'en,ru');
 tinymce.PluginManager.add('typograf', function (editor, url) {
@@ -12,19 +12,139 @@ tinymce.PluginManager.add('typograf', function (editor, url) {
                 editor.setContent(tp.execute(editor.getContent()));
                 editor.undoManager.add();
             }
-        };
+        },
+        data = {},
+        tpDefault = {},
+        tmSettings = tinymce.activeEditor.settings,
+        tpSettings = tmSettings.typograf;
+
+    if (tpSettings) {
+        data = tpSettings;
+    }
+
+    tpDefault.locale = ['ru', 'en-US'];
+    tpDefault.htmlEntity = {};
+
+    if (!data.locale) {
+        data.locale = tpDefault.locale;
+    }
+    if (!data.htmlEntity) {
+        data.htmlEntity = tpDefault.htmlEntity;
+    }
 
     scriptLoader.add(url + '/dist/typograf.all.min.js');
 
     scriptLoader.loadQueue(function () {
-        tp = new Typograf({
-            locale: ['ru', 'en-US'],
-            mode: 'name'
-        });
+        if (data.addRule) {
+            addRule(data.addRule);
+        }
+
+        tp = new Typograf({locale: data.locale, htmlEntity: data.htmlEntity});
+
+        if (data.addSafeTag) {
+            addSafeTag(tp, data.addSafeTag);
+        }
+        if (data.enableRule) {
+            registerPluginCss(data.enableRule);
+            enableRule(tp, data.enableRule);
+        }
+        if (data.disableRule) {
+            disableRule(tp, data.disableRule);
+        }
+        if (data.setSetting) {
+            setSetting(tp, data.setSetting);
+        }
     });
 
+    /**
+     * Turn off typography in sections of text
+     * @param tp
+     * @param tags
+     */
+    function addSafeTag(tp, tags) {
+        if (Array.isArray(tags)) {
+            tags.forEach(function (item) {
+                tp.addSafeTag(item[0], item[1]);
+            });
+        }
+    }
+
+    /**
+     * Add a simple rule
+     * @param rule
+     */
+    function addRule(rule) {
+        if (Array.isArray(rule)) {
+            rule.forEach(function (item) {
+                return Typograf.addRule(item);
+            });
+        }
+    }
+
+    /**
+     * The change rules
+     * @param tp
+     * @param setting
+     */
+    function setSetting(tp, setting) {
+        if (Array.isArray(setting)) {
+            setting.forEach(function (item) {
+                tp.setSetting(item[0], item[1], item[2]);
+            });
+        }
+    }
+
+    /**
+     * Enable rules
+     * @param tp
+     * @param rule
+     */
+    function enableRule(tp, rule) {
+        if (Array.isArray(rule)) {
+            rule.forEach(function (item) {
+                tp.enableRule(item);
+            });
+        } else {
+            tp.enableRule(rule);
+        }
+    }
+
+    /**
+     * Register css this plugin if indicated rule
+     * Hanging punctuation
+     * @see https://github.com/typograf/typograf/blob/dev/docs/api_optalign.md
+     */
+    function registerPluginCss(rules) {
+        let cssUrl = url + '/dist/typograf.css',
+            rule = 'ru/optalign/*',
+            linkElm = editor.dom.create('link', {
+                rel: 'stylesheet',
+                href: cssUrl
+            });
+        if (Array.isArray(rules)) {
+            if (rules.indexOf(rule) !== -1) {
+                editor.getDoc().getElementsByTagName('head')[0].appendChild(linkElm);
+            }
+        }
+    }
+
+    /**
+     * Disable rules
+     * @param tp
+     * @param rule
+     */
+    function disableRule(tp, rule) {
+        if (Array.isArray(rule)) {
+            rule.forEach(function (item) {
+                tp.disableRule(item);
+            });
+        } else {
+            tp.disableRule(rule);
+        }
+    }
+
     editor.addButton('typograf', {
-        text: 'Typography',
+        title: 'Typography',
         icon: 'blockquote',
         onclick: typo
     });
@@ -38,7 +158,7 @@ tinymce.PluginManager.add('typograf', function (editor, url) {
 
     return {
         getMetadata: function () {
-            return  {
+            return {
                 name: 'Typography',
                 url: 'https://github.com/Dominus77/typograf'
             };

@@ -3,7 +3,7 @@
 Помогает автоматически расставить неразрывные пробелы, исправить мелкие опечатки, привести кавычки к правильному виду,
 заменить дефисы на тире в нужных местах и многое другое.
 
-Больше информации: [Типограф на JavaScript](https://github.com/typograf/typograf/)
+Больше информации: [Типограф на JavaScript](https://github.com/typograf/typograf)
 
 ## Установка
 
@@ -18,8 +18,8 @@ tinymce.init({
   selector: 'textarea',
   plugins: ['typograf'],
   toolbar: 'typograf',
-  contextmenu: 'typograf',
-})
+  contextmenu: 'typograf',  
+});
 ```
 
 ## Лицензия
