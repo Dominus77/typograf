@@ -78,6 +78,5 @@ tinymce.init({
     //...
 });
 ```
-
 ## Лицензия
 Лицензия MIT (MIT). Посмотрите пожалуйста [Файл лицензии](https://github.com/Dominus77/typograf/blob/master/LICENSE.md) что бы получить больше информации.
